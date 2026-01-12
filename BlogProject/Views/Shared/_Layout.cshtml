@@ -1479,6 +1479,47 @@
         }
 
     </style>
+
+
+    <style>
+        .ambient {
+            position: fixed;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            pointer-events: none;
+            filter: blur(120px);
+            opacity: 0.25;
+            animation: float 20s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .ambient-left {
+            left: -150px;
+            background: radial-gradient(circle, #000000 0%, transparent 70%);
+        }
+
+        .ambient-right {
+            right: -150px;
+            background: radial-gradient(circle, #000000 0%, transparent 70%);
+            animation-delay: 6s;
+        }
+
+        @@keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-60px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+</style>
 </head>
 @if (TempData["Succeed"] != null)
 {
@@ -1497,6 +1538,11 @@ else if (TempData["Failed"] != null)
 <div class="progress-container">
     <div class="progress-bar" id="progressBar"></div>
 </div>
+
+<div class="ambient ambient-left"></div>
+<div class="ambient ambient-right"></div>
+
+
 
 <script>
     window.addEventListener('scroll', function() {
@@ -1528,6 +1574,7 @@ else if (TempData["Failed"] != null)
             Your browser does not support the video tag.
         </video>
     </div> *@
+
 
     <header class=" py-0 pt-0">
         <div class="container">
