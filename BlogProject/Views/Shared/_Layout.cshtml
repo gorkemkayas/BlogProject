@@ -1519,7 +1519,120 @@
             }
         }
 
-</style>
+    </style>
+    <style>
+        /* Sol taraf bildirim butonu */
+        .notification-info-button {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        .notification-info-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
+        }
+
+        .notification-info-button svg {
+            width: 28px;
+            height: 28px;
+            stroke-width: 2.5;
+        }
+
+        @@keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+            }
+            50% {
+                box-shadow: 0 6px 25px rgba(255, 107, 107, 0.6), 0 0 0 10px rgba(255, 107, 107, 0.1);
+            }
+        }
+
+        /* Mobilde bildirim butonunu gizle */
+        @@media (max-width: 992px) {
+            .notification-info-button
+
+        {
+            display: none;
+        }
+
+        }
+
+        /* Bildirim modal */
+        .notification-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2001;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .notification-modal-content {
+            background: white;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification-modal-content h2 {
+            color: #212529;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification-modal-content h2 svg {
+            width: 32px;
+            height: 32px;
+            color: #ff6b6b;
+        }
+
+        .notification-modal-content p {
+            color: #6c757d;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-top: 16px;
+        }
+
+        @@media (max-width: 768px) {
+            .notification-modal-content
+
+        {
+            padding: 24px;
+            margin: 20px;
+        }
+
+        }
+    </style>
 
 
 <!-- Google tag (gtag.js) -->
@@ -1758,6 +1871,14 @@ else if (TempData["Failed"] != null)
     </div>
 
 
+    <!-- Sol taraf bildirim butonu -->
+    <button id="notificationButton" class="notification-info-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+            <path d="M12 8v4M12 16h.01"/>
+        </svg>
+    </button>
+
     <!-- Sabit buton grubu -->
     <div class="floating-buttons">
         <button id="progressPlansButton" class="development-button">
@@ -1766,6 +1887,27 @@ else if (TempData["Failed"] != null)
             </svg>
             <span class="development-text">Progress & Plans</span>
         </button>
+    </div>
+
+    <!-- Bildirim Modal -->
+    <div id="notificationModal" class="notification-modal">
+        <div class="notification-modal-content">
+            <button id="closeNotification" class="close-btn">&times;</button>
+            <h2>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 8v4M12 16h.01"/>
+                </svg>
+                Important Notice
+            </h2>
+            <p>
+                Some post images may not display properly. This issue occurred because I didn't mount volumes to the container. 
+                As a result, some posts may be missing their images. We apologize for the inconvenience and are working to resolve this.
+            </p>
+            <div class="button-group">
+                <button id="closeNotificationBtn" class="submit-btn">Got it</button>
+            </div>
+        </div>
     </div>
 
     <!-- Progress & Plans Modal -->
@@ -1836,6 +1978,36 @@ else if (TempData["Failed"] != null)
             </div>
         </div>
     </div>
+    <script>
+        // Bildirim modal işlemleri
+        const notificationButton = document.getElementById("notificationButton");
+        const notificationModal = document.getElementById("notificationModal");
+        const closeNotification = document.getElementById("closeNotification");
+        const closeNotificationBtn = document.getElementById("closeNotificationBtn");
+
+        // Modal'ı aç
+        notificationButton.addEventListener("click", () => {
+            notificationModal.style.display = "flex";
+        });
+
+        // Modal'ı kapat (çarpı butonu)
+        closeNotification.addEventListener("click", () => {
+            notificationModal.style.display = "none";
+        });
+
+        // Modal'ı kapat (alt buton)
+        closeNotificationBtn.addEventListener("click", () => {
+            notificationModal.style.display = "none";
+        });
+
+        // Sayfanın dışına tıklanırsa modal'ı kapat
+        window.addEventListener("click", (event) => {
+            if (event.target === notificationModal) {
+                notificationModal.style.display = "none";
+            }
+        });
+    </script>
+
     <script>
         // Benzersiz ID'lerle öğeleri seçiyoruz
         const progressPlansButton = document.getElementById("progressPlansButton");
