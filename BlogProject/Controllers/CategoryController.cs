@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlogProject.Controllers
 {
+    [RequestSizeLimit(200 * 1024 * 1024)]
+    [RequestFormLimits(MultipartBodyLengthLimit = 200 * 1024 * 1024)]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

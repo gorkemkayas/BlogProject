@@ -34,7 +34,14 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-
+builder.Services.Configure<FormOptions>(o =>
+{
+    o.MultipartBodyLengthLimit = 200 * 1024 * 1024; // 200 MB
+});
+builder.WebHost.ConfigureKestrel(o =>
+{
+    o.Limits.MaxRequestBodySize = 200 * 1024 * 1024; // 200 MB
+});
 
 
 // Add services to the container.

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogProject.Controllers
 {
+    [RequestSizeLimit(200 * 1024 * 1024)]
+    [RequestFormLimits(MultipartBodyLengthLimit = 200 * 1024 * 1024)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

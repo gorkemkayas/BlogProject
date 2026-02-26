@@ -3,6 +3,8 @@
 namespace BlogProject.Controllers
 {
     [Route("upload")]
+    [RequestSizeLimit(200 * 1024 * 1024)]
+    [RequestFormLimits(MultipartBodyLengthLimit = 200 * 1024 * 1024)]
     public class UploadController : Controller
     {
         [RequestSizeLimit(50_000_000)] // 50 MB

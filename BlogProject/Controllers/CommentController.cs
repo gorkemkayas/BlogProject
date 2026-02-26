@@ -8,6 +8,8 @@ using System.Globalization;
 
 namespace BlogProject.Controllers
 {
+    [RequestSizeLimit(200 * 1024 * 1024)]
+    [RequestFormLimits(MultipartBodyLengthLimit = 200 * 1024 * 1024)]
     public class CommentController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
