@@ -1106,7 +1106,7 @@
     <div class="container">
         <h2 class="section-title">Featured Articles</h2>
         <div class="post-grid">
-            @foreach(var post in Model.LatestPosts)
+            @foreach(var post in Model.MostViewedPosts.Take(3))
             {
                 <!-- Post 1 -->
                 <article class="post-card post-title-link ">
@@ -1173,7 +1173,7 @@
     <div class="container">
         <h2 class="section-title">Latest Articles</h2>
         <div class="post-grid">
-            @foreach (var post in Model.MostViewedPosts.Take(3))
+            @foreach (var post in Model.LatestPosts)
             {
                 <!-- Post 4 -->
                 <article class="post-card post-title-link">

@@ -42,7 +42,7 @@ namespace BlogProject.Controllers
 
             // Task'ları başlatıyoruz
             var mostViewedTask = _postService.GetMostViewedPostsWithCount(5);
-            var latestPostsTask = _postService.GetLatestPostsWithCount();
+            var latestPostsTask = _postService.GetLatestPostsWithCount(6);
             var popularTagsTask = _tagService.GetPopularTags(15);
             var mostContributorsTask = _userService.MostContributors(3);
             var mostReadThisWeekTask = _postService.GetMostViewedPostsWithCount(5, currentWeek: true);
