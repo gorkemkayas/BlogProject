@@ -1173,7 +1173,7 @@
     <div class="container">
         <h2 class="section-title">Latest Articles</h2>
         <div class="post-grid">
-            @foreach (var post in Model.MostViewedPosts)
+            @foreach (var post in Model.MostViewedPosts.Take(3))
             {
                 <!-- Post 4 -->
                 <article class="post-card post-title-link">
