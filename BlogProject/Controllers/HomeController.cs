@@ -41,7 +41,7 @@ namespace BlogProject.Controllers
             }
 
             // Task'ları başlatıyoruz
-            var mostViewedTask = _postService.GetMostViewedPostsWithCount();
+            var mostViewedTask = _postService.GetMostViewedPostsWithCount(5);
             var latestPostsTask = _postService.GetLatestPostsWithCount();
             var popularTagsTask = _tagService.GetPopularTags(15);
             var mostContributorsTask = _userService.MostContributors(3);
