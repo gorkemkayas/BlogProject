@@ -128,8 +128,9 @@
                 overflow: hidden;
                 border-right: 3px solid black;
                 width: 0;
-                animation: yaz 4s steps(16) infinite;
+                animation: yaz 4s steps(24) infinite;
                 animation-fill-mode: forwards;
+                margin-inline-start: 50px;
             }
 
             @@keyframes yaz {
@@ -150,7 +151,7 @@
         <section class="auth-section">
             <div class="auth-container">
                 <div class="auth-header">
-                    <h2 class="yazi-efekti">Create Account</h2>
+                    <h2 class="yazi-efekti ">Create Account</h2>
                     <p>Already have an account? <a asp-controller="User" asp-action="SignIn" class="text-link">Sign in</a></p>
                 </div>
 
