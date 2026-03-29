@@ -642,64 +642,128 @@
         overflow: hidden;
         }
 
+        .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.55) 100%);
+        z-index: 1;
+        }
+
+        .hero-video-wrapper {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+        pointer-events: none;
+        }
+
+        .hero-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.05);
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: cover;
+        filter: blur(4px);
+        }
+
         .hero-animation {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.03) 100%);
-        animation: shimmer 8s infinite linear;
-        z-index: 0;
+        inset: 0;
+        pointer-events: none;
+        background:
+            radial-gradient(circle at 18% 28%, rgba(255,255,255,0.28), rgba(255,255,255,0) 46%),
+            radial-gradient(circle at 82% 72%, rgba(255,255,255,0.22), rgba(255,255,255,0) 50%);
+        animation: heroGlow 6.5s ease-in-out infinite;
+        z-index: 2;
+        }
+
+        .hero-animation::before {
+        content: '';
+        position: absolute;
+        inset: -35% -20%;
+        background: linear-gradient(115deg, rgba(255,255,255,0) 24%, rgba(255,255,255,0.34) 50%, rgba(255,255,255,0) 76%);
+        transform: translateX(-55%) rotate(8deg);
+        animation: shimmer 6s ease-in-out infinite;
+        }
+
+        .hero-animation::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.14) 100%);
         }
 
         .hero .container {
         position: relative;
-        z-index: 1;
+        z-index: 3;
         }
 
         .hero-title {
         font-size: 3rem;
         font-weight: 800;
-        color: #000;
+        color: #fff;
         margin-bottom: 1.5rem;
         line-height: 1.2;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
         }
 
         .hero-subtitle {
         font-size: 1.25rem;
-        color: #333;
+        color: rgba(255, 255, 255, 0.95);
         max-width: 700px;
         margin: 0 auto 2.5rem;
-        opacity: 0.9;
+        opacity: 1;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
         }
 
         .hero-cta {
         display: inline-block;
         padding: 0.9rem 2.5rem;
-        background-color: #000;
-        color: #fff;
+        background-color: rgba(255, 255, 255, 0.95);
+        color: #000;
         text-decoration: none;
         border-radius: 4px;
         font-weight: 600;
         transition: all 0.3s;
-        border: 1px solid #000;
+        border: 1px solid rgba(255, 255, 255, 0.95);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         }
 
         .hero-cta:hover {
         background-color: transparent;
-        color: #000;
+        color: #fff;
+        border-color: #fff;
         }
 
         @@keyframes shimmer {
         0%
 
         {
-        transform: translateX(-100%);
+        transform: translateX(-55%) rotate(8deg);
+        }
+
+        50% {
+        transform: translateX(0%) rotate(8deg);
         }
 
         100% {
-        transform: translateX(100%);
+        transform: translateX(55%) rotate(8deg);
+        }
+
+        }
+
+        @@keyframes heroGlow {
+        0%, 100% {
+        opacity: 0.88;
+        }
+
+        50% {
+        opacity: 1;
         }
 
         }
@@ -1024,11 +1088,16 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="hero-video-wrapper">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="~/img/hero.mp4" type="video/mp4" />
+            </video>
+        </div>
         <div class="hero-animation"></div>
         <div class="container">
             <h1 class="hero-title">Thoughts, Stories & Ideas</h1>
-            <p class="hero-subtitle">A minimalist blog about technology, design, and the intersection between them.</p>
-            <a href="#" class="hero-cta">Start Reading with kayas.</a>
+            <p class="hero-subtitle">From technology and design to culture, business, and the ideas shaping our world.</p>
+            <a asp-controller="post" asp-action="postdetails" asp-route-id="@Model.LatestPosts.First().Id" class="hero-cta">Explore now.</a>
         </div>
     </section>
 

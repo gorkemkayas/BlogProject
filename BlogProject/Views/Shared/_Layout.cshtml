@@ -548,36 +548,32 @@
     <style>
         .ad-left, .ad-right {
         position: fixed;
-        top: 100px; /* İstersen yukarıdan boşluk bırakabilirsin */
-        width: 160px;
-        height: 600px; /* Reklam yüksekliği */
-        background: #f9f9f9;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
-        border-radius: 8px;
-        padding: 10px;
-        z-index: 9999; /* Üstte görünür olsun */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-        color: #555;
+        top: calc(50% - 105px);
+        transform: translateY(-50%);
+        width: fit-content;
+        height: fit-content;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+        overflow: visible;
+        z-index: 9999;
+        display: inline-block;
+        line-height: 0;
         }
 
         .ad-left {
-        left: 0;
-        margin-left: 20px; /* Sol reklam için boşluk */
+        left: 16px;
         }
 
         .ad-right {
-        right: 0;
-        margin-right: 20px; /* Sağ reklam için boşluk */
+        right: 16px;
         }
 
         /* İçerik kısmını daraltmak için (örnek) */
         .main-content {
-        margin-left: 180px; /* sol reklam genişliği + boşluk */
-        margin-right: 180px; /* sağ reklam genişliği + boşluk */
+        margin-left: clamp(190px, 14vw, 240px);
+        margin-right: clamp(190px, 14vw, 240px);
         }
 
         /* Mobilde reklamları gizle */
@@ -599,37 +595,34 @@
         /* Reklam alanları */
         .ad-left, .ad-right {
         position: fixed;
-        top: 50%;
+        top: calc(50% - 105px);
         transform: translateY(-50%);
-        width: 160px;
-        height: 600px;
-        background: #f9f9f9;
-        border: 1px solid #ccc;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        border-radius: 8px;
-        padding: 0px;
+        width: fit-content;
+        height: fit-content;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+        overflow: visible;
         z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-        color: #555;
+        display: inline-block;
+        line-height: 0;
         }
 
         /* Sol reklam sayfanın sol kenarında */
         .ad-left {
-        left: 0;
+        left: 16px;
         }
 
         /* Sağ reklam sayfanın sağ kenarında */
         .ad-right {
-        right: 0;
+        right: 16px;
         }
 
         /* Sayfa içeriğine reklamların genişliği kadar margin veriyoruz ki üzerine binmesin */
         .main-content {
-        margin-left: 180px; /* 160px reklam genişliği + 20px boşluk */
-        margin-right: 180px;
+        margin-left: clamp(190px, 14vw, 240px);
+        margin-right: clamp(190px, 14vw, 240px);
         }
 
         /* Mobilde reklamları gizle */
@@ -647,14 +640,40 @@
 
         }
 
-        .ad-box, .ad-box video {
-        width: 100%;
-        height: 100%;
+        .ad-box {
+        position: relative;
+        display: inline-block;
+        width: min(18vw, 190px);
+        line-height: 0;
         }
 
-        .ad-box video {
-        object-fit: fill; /* Video içeriği alanı tamamen doldurur, en-boy oranı bozulabilir */
+        .ad-box img {
         display: block;
+        width: 100%;
+        height: auto;
+        }
+
+        .ad-close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        border: 0;
+        border-radius: 0 0 0 12px;
+        background: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        font-size: 20px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 2;
+        }
+
+        .ad-close-btn:hover {
+        background: rgba(0, 0, 0, 0.9);
         }
 
     </style>
@@ -1683,6 +1702,20 @@ else if (TempData["Failed"] != null)
     </div>
 </div> *@
 <body>
+    <div class="ad-left d-none d-xl-flex">
+        <div class="ad-box">
+            <button type="button" class="ad-close-btn" aria-label="Reklamı kapat" onclick="closeAdBanner(); return false;">×</button>
+            <img src="~/img/advert.jpeg" alt="Kayas Commerce reklamı - sol taraf" />
+        </div>
+    </div>
+
+    <div class="ad-right d-none d-xl-flex">
+        <div class="ad-box">
+            <button type="button" class="ad-close-btn" aria-label="Reklamı kapat" onclick="closeAdBanner(); return false;">×</button>
+            <img src="~/img/advert.jpeg" alt="Kayas Commerce reklamı - sağ taraf" />
+        </div>
+    </div>
+
     @*  <!-- Left Ad Container -->
     <div class="ad-container ad-left d-none d-xl-block">
         <video class="ad-video" autoplay loop muted playsinline>
@@ -1829,7 +1862,7 @@ else if (TempData["Failed"] != null)
     </header>
 
 
-    <main class="flex-grow-1">
+    <main class="flex-grow-1 main-content">
         <div class="container">
 
             @RenderBody()
@@ -2004,6 +2037,26 @@ else if (TempData["Failed"] != null)
             if (event.target === notificationModal) {
                 notificationModal.style.display = "none";
             }
+        });
+    </script>
+
+    <script>
+        function closeAdBanner() {
+            document.querySelectorAll('.ad-left, .ad-right').forEach(ad => {
+                ad.classList.remove('d-xl-flex');
+                ad.classList.add('d-none');
+                ad.hidden = true;
+                ad.style.setProperty('display', 'none', 'important');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.ad-close-btn').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    closeAdBanner();
+                });
+            });
         });
     </script>
 
@@ -2420,6 +2473,7 @@ else if (TempData["Failed"] != null)
         }
         });
     </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
 
