@@ -1318,12 +1318,12 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Most Read</h2>
-                <p class="section-subtitle">Trending articles this week</p>
+                <p class="section-subtitle">Trending articles</p>
             </div>
 
             <div class="posts-ranking">
             @{var counter = 1;
-                @foreach (var post in Model.MostReadPostsThisWeek)
+                @foreach (var post in Model.MostViewedPosts.Take(5))
                 {
                         <a asp-controller="Post" asp-action="PostDetails" asp-route-id="@post.Id" class="post-item post-title-link">
                             <div class="post-rank-wrapper">
