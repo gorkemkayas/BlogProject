@@ -187,9 +187,10 @@ namespace BlogProject.Controllers
             else if (!result.IsSuccess)
             {
                 TempData["Failed"] = "User could not be created.";
-
+                
                 foreach (var error in result.Errors!)
                 {
+                    Console.WriteLine(error.Description);
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
                 return View(request);
