@@ -513,6 +513,7 @@ namespace BlogProject.Infrastructure.Services
 
             var usersWithCounts = await context.Users
                 .AsNoTracking()
+                .Where(c => c.IsDeleted == false && c.IsSuspended == false) // Sadece en az bir gönderisi olan kullanıcıları dahil et
                 .Select(u => new ContributorDto
                 {
                      FullName = $"{u.Name} {u.Surname}",

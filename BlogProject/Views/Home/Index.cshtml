@@ -1206,8 +1206,10 @@
                     <!-- Author 1 -->
                     <div class="author-card">
                         <div class="author-img-container">
-                            <img src="/img/userPhotos/@contributor.UserName/@contributor.ProfileImageUrl"
-                            alt="@contributor.FullName" class="author-img">
+                            <img src="@(string.IsNullOrWhiteSpace(contributor.ProfileImageUrl) ? "/img/defaultProfilePhoto.jpg" : $"/img/userPhotos/{contributor.UserName}/{contributor.ProfileImageUrl}")"
+                                 alt="@contributor.FullName"
+                                 class="author-img"
+                                 onerror="this.onerror=null;this.src='/img/defaultProfilePhoto.jpg';">
                         </div>
                         <div class="author-info">
                             <h3 class="author-name">@contributor.FullName</h3>
