@@ -81,12 +81,6 @@
 </head>
 
 <body>
-    @if (TempData["Failed"] != null)
-    {
-    <div class="alert alert-danger">
-        <i class="fas fa-exclamation-circle" style="color:white;"></i> @TempData["Failed"]!.ToString()
-    </div>
-    }
     <div class="main-container">
         <!-- Video Hero Section -->
         <section class="hero-section">
@@ -170,9 +164,9 @@
                 }
                 else if (TempData["Failed"] != null)
                 {
-                    <div class="alert alert-danger">
-                        <i class="fas fa-exclamation-circle" style="color:white;"></i> @TempData["Failed"]!.ToString()
-                    </div>
+                    <div class="alert alert-danger signup-alert-danger">
+    <i class="fas fa-exclamation-circle"></i> @TempData["Failed"]!.ToString()
+</div>
                 }
 
                 <form asp-controller="User" asp-action="SignUp" method="post">
@@ -902,3 +896,12 @@
         });
     });
 </script>
+<style>
+    .signup-alert-danger {
+        color: #fff !important;
+    }
+
+    .signup-alert-danger i {
+        color: #fff !important;
+    }
+</style>
