@@ -511,7 +511,7 @@ namespace BlogProject.Infrastructure.Services
 
             using var context = _contextFactory.CreateDbContext();
 
-            var usersWithCounts = await context.Users
+            var usersWithCounts = await context.Users.Where(c => c.IsDeleted == false)
                 .AsNoTracking()
                 .Select(u => new ContributorDto
                 {
