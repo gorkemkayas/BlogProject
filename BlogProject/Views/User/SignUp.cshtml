@@ -162,12 +162,6 @@
                         <i class="fas fa-check-circle"></i> @TempData["Succeed"]!.ToString()
                     </div>
                 }
-                else if (TempData["Failed"] != null)
-                {
-                    <div class="alert alert-danger signup-alert-danger">
-    <i class="fas fa-exclamation-circle"></i> @TempData["Failed"]!.ToString()
-</div>
-                }
 
                 <form asp-controller="User" asp-action="SignUp" method="post">
                     <div class="input-row mb-0">
@@ -896,12 +890,3 @@
         });
     });
 </script>
-<style>
-    .signup-alert-danger {
-        color: #fff !important;
-    }
-
-    .signup-alert-danger i {
-        color: #fff !important;
-    }
-</style>

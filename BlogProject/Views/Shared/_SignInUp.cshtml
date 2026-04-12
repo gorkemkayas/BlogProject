@@ -88,6 +88,13 @@
 
 </head>
 <body>
+    @if (TempData["Failed"] != null)
+    {
+        <div id="errorAlert" class="custom-alert alert-danger">
+            <i class="fa-solid fa-xmark"></i> @TempData["Failed"]!.ToString()
+        </div>
+    }
+
 @*     <div class="ad-left-full">
         <video class="ad-video" autoplay loop muted playsinline>
             <source src="~/img/AdLeft.webm" type="video/mp4">
@@ -110,6 +117,21 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const errorAlert = document.getElementById('errorAlert');
+
+            if (errorAlert) {
+                setTimeout(() => {
+                    errorAlert.classList.add('show-alert');
+                }, 100);
+
+                setTimeout(() => {
+                    errorAlert.classList.remove('show-alert');
+                }, 5000);
+            }
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
