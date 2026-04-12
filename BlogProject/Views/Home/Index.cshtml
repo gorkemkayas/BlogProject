@@ -1208,8 +1208,7 @@
                         <div class="author-img-container">
                             <img src="@(string.IsNullOrWhiteSpace(contributor.ProfileImageUrl) ? "/img/defaultProfilePhoto.jpg" : $"/img/userPhotos/{contributor.UserName}/{contributor.ProfileImageUrl}")"
                                  alt="@contributor.FullName"
-                                 class="author-img"
-                                 onerror="this.onerror=null;this.src='/img/defaultProfilePhoto.jpg';">
+                                 class="author-img">
                         </div>
                         <div class="author-info">
                             <h3 class="author-name">@contributor.FullName</h3>
