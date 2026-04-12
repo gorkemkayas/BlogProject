@@ -193,7 +193,7 @@ namespace BlogProject.Controllers
                     Console.WriteLine(error.Description);
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-                TempData["Failed"] = result.Errors.Select(error => error.Description);
+                TempData["Failed"] = result.Errors!.First().Description;
                 return View(request);
 
             }
